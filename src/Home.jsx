@@ -21,16 +21,20 @@ export function Home(){
     useEffect(()=>{
         const unsubscribe = onSnapshot(queryChats, (querySnapshot) => {
             querySnapshot.docChanges().forEach((change) => {
-              let changedChat = { id: change.doc.id, ...change.doc.data() };
+              // Following check for user in db works!!!
+              // change.doc.data().users.indexOf("LrOqrJaaqUdDZIuYxcv0xEp80E2")>-1
+              if(change.doc.data().users.indexOf("LrOqrJaaqUdDZI9uYxcv0xEp80E2")>-1){
+                let changedChat = { id: change.doc.id, ...change.doc.data() };
         
-              if (change.type === "added") {
-                addChat(changedChat);
-              }
-              if (change.type === "modified") {
-                console.log("Modified message: ", change.doc.data());
-              }
-              if (change.type === "removed") {
-                console.log("Removed message: ", change.doc.data());
+                if (change.type === "added") {
+                  addChat(changedChat);
+                }
+                if (change.type === "modified") {
+                  console.log("Modified message: ", change.doc.data());
+                }
+                if (change.type === "removed") {
+                  console.log("Removed message: ", change.doc.data());
+                }
               }
             });
           });
