@@ -1,17 +1,17 @@
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "../db/firebase"
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { MessageList } from "./MessageList";
 import { useEffect, useState } from "react";
 
 export function ActiveChat({chat}){
+    console.log("Active chat created: " + chat.name)
     const messageRef = collection(db, "chats", chat.id, "messages")
     const queryMessages = messageRef;
 
     const [messages, setMessages] = useState([])
-    // const [messages] = useCollectionData(queryMessages, {idField: "id"});
 
     useEffect(()=>{
+        setMessages([])
         const unsubscribe = onSnapshot(queryMessages, (querySnapshot) => {
             querySnapshot.docChanges().forEach((change) => {
               let changedMessage = { id: change.doc.id, ...change.doc.data() };
@@ -31,7 +31,7 @@ export function ActiveChat({chat}){
           return () => {
             unsubscribe(); // Unsubscribe when the component is unmounted or dependency changes
           };
-    },[])
+    },[chat])
 
     function addMessage(message){
         setMessages((currentMessages)=>{
@@ -44,6 +44,7 @@ export function ActiveChat({chat}){
 
     return(
         <>
+            {messages && console.log(messages)}
             <h3>Active Chat: {chat.name}</h3>
             <MessageList messages={messages}/>
         </>
