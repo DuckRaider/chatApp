@@ -71,6 +71,7 @@ export function Home(){
 
   return(
       <>
+        {user && console.log(user)}
         {chats && <ChatList chats={chats} setChat={setChat}/>}
         <h1>========================================</h1>
         {activeChat && <ActiveChat chat={activeChat}/>}

@@ -7,6 +7,7 @@ export function ActiveChat({chat}){
     console.log("Active chat created: " + chat.name)
     const messageRef = collection(db, "chats", chat.id, "messages")
     const queryMessages = messageRef;
+    const [userAsObjecs, setUserAsObjects] = useState([])
 
     const [messages, setMessages] = useState([])
 
