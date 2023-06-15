@@ -21,10 +21,10 @@ export function ActiveChat({chat}){
                 addMessage(changedMessage)
               }
               if (change.type === "modified") {
-                console.log("Modified message: ", change.doc.data());
+                modifyMessage(changedMessage)
               }
               if (change.type === "removed") {
-                console.log("Removed message: ", change.doc.data());
+                deleteMessage(changedMessage)
               }
             });
           });
@@ -34,6 +34,11 @@ export function ActiveChat({chat}){
           };
     },[chat])
 
+
+
+
+
+
     function addMessage(message){
         setMessages((currentMessages)=>{
             return[
@@ -42,6 +47,27 @@ export function ActiveChat({chat}){
             ]
         })
     }
+    function deleteMessage(message){
+      setMessages(currentMessages=>{
+        return currentMessages.filter(theMessageToDelete => theMessageToDelete.id !== message.id)
+      })
+    }
+    function modifyMessage(message){
+      setMessages(currentMessages=>{
+        currentMessages = currentMessages.map(element => {
+          if(element.id === message.id){
+            return message
+          }
+          return element
+        })
+  
+        return currentMessages
+      }
+      )
+    }
+
+
+
 
     return(
         <>
