@@ -29,7 +29,7 @@ export function Home(){
               addChat(changedChat);
             }
             if (change.type === "modified") {
-              console.log("Modified message: ", change.doc.data());
+              modifyChat(changedChat)
             }
             if (change.type === "removed") {
               console.log("Removed message: ", change.doc.data());
@@ -58,6 +58,20 @@ export function Home(){
     setChats(currentChats=>{
       return currentChats.filter(theChatToDelete => theChatToDelete.id !== chat.id)
     })
+  }
+  function modifyChat(chat){
+    // chats is empty
+    setChats(currentChats=>{
+      currentChats = currentChats.map(element => {
+        if(element.id === chat.id){
+          return chat
+        }
+        return element
+      })
+
+      return currentChats
+    }
+    )
   }
 
 
