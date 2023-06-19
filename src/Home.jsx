@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, db } from "./db/firebase";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { Chat } from "./components/Chat";
 import { ChatList } from "./components/ChatList";
 import { useEffect, useState } from "react";
@@ -46,6 +46,7 @@ export function Home(){
 
 
 
+  // functions for updating the states
   function addChat(chat){
     setChats(currentChats=>{
         return[
@@ -60,7 +61,6 @@ export function Home(){
     })
   }
   function modifyChat(chat){
-    // chats is empty
     setChats(currentChats=>{
       currentChats = currentChats.map(element => {
         if(element.id === chat.id){
@@ -72,6 +72,38 @@ export function Home(){
       return currentChats
     }
     )
+  }
+
+
+
+
+  // functions for updating the database
+  async function addChatDB(chat){
+    const chatRef = doc(db, "chats")
+
+    await addDoc(chatRef, chat)
+    .catch(e=>{
+      console.log(e)
+    })
+  }
+  async function deleteChatDB(chat){
+    const chatRef = doc(db, "chats", chat.id)
+
+    await deleteDoc(chatRef)
+    .catch(e=>{
+      console.log(e)
+    })
+  }
+  async function modifyChatDB(chat){
+    const chatRef = doc(db, "chats", chat.id)
+
+    await updateDoc(chatRef,{
+      name: chat.name,
+      users: chat.users
+    })
+    .catch(e=>{
+      console.log(e)
+    })
   }
 
 

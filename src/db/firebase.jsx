@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { addUserToDB } from "../functions/addUserToDB";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,6 +27,9 @@ function createUser(email, password){
       const user = userCredential.user;
       alert("WORKED")
       setLoginInformation(user.email)
+
+      // add created user to db
+      addUserToDB(user)
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -77,6 +81,9 @@ function signInWithGoogle(){
         // The signed-in user info.
         const user = result.user;
 
+        // add created user to db
+        addUserToDB(user)
+
         window.location.replace("/")
     }).catch((error) => {
         // Handle Errors here.
@@ -90,8 +97,5 @@ function signInWithGoogle(){
     });
 }
 
-function getUser(){
-    return currentUser
-}
 
-export{db, auth, createUser, signInUser, getUser, signOut, signInWithGoogle}
+export{db, auth, createUser, signInUser, signOut, signInWithGoogle}

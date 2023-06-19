@@ -28,11 +28,16 @@ export function ActiveChat({chat}){
               }
             });
           });
-        
+
           return () => {
             unsubscribe(); // Unsubscribe when the component is unmounted or dependency changes
           };
     },[chat])
+
+    useEffect(()=>{
+
+    },[messages])
+
 
 
 
@@ -69,6 +74,12 @@ export function ActiveChat({chat}){
 
 
 
+    function sortByDate(){
+      setMessages(currentMessages =>{
+        
+        }
+      )
+    }
     return(
         <>
             {messages && console.log(messages)}
