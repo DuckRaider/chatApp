@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import { getFirestore, doc, setDoc } from "firebase/firestore"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { addUserToDB } from "../functions/addUserToDB";
 
@@ -20,20 +20,25 @@ const firebaseConfig = {
 };
 
 function createUser(email, password){
+
     //from https://firebase.google.com/docs/auth/web/password-auth?hl=en#create_a_password-based_account
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      alert("WORKED")
-      setLoginInformation(user.email)
+        const userRef = doc(db, "users", userCredential.user.uid)
 
-      // add created user to db
-      addUserToDB(user)
+      // Signed in 
+        const user = userCredential.user;
+
+        setDoc(userRef, {
+            email: user.email
+        })
+
+        alert("WORKED")
+        setLoginInformation(user.email)
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
   });
 }
 function signInUser(email, password){
