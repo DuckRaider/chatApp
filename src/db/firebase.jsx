@@ -3,14 +3,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, updateProfile } from "firebase/auth";
 import { addUserToDB } from "../functions/addUserToDB";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-    // apiKey: "AIzaSyBuUWz_HO2MkiiK4r2CNS7Fmo7cFdC6nkg",
-    // authDomain: "chatapp-ece7a.firebaseapp.com",
-    // projectId: "chatapp-ece7a",
-    // storageBucket: "chatapp-ece7a.appspot.com",
-    // messagingSenderId: "779760565378",
-    // appId: "1:779760565378:web:d58fd2f901d999dc91c89b"
     apiKey: "AIzaSyDagOQSi9jMhCTj88lKFxwNC6Fjfw3dxOs",
     authDomain: "chatappv2-50d2d.firebaseapp.com",
     projectId: "chatappv2-50d2d",
@@ -36,15 +29,6 @@ function createUser(email, password, displayName){
         .then(()=>{
             console.log("User added to collection")
         })
-
-        // add the display name to the user
-        // updateProfile(user, {
-        //     displayName: displayName
-        // }).then(() => {
-        //     console.log("Display name updated")
-        // }).catch((error) => {
-        //     console.log("Error updating display name")
-        // })
         
         //update name
         updateProfile(user, {
@@ -58,6 +42,9 @@ function createUser(email, password, displayName){
         // everything after setLoginInformation doesn't get executed
         alert("worked")
         setLoginInformation(user.email)
+
+
+        // redirect not implemented right now
     })
     .catch((error) => {
         const errorCode = error.code;
