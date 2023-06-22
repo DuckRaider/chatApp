@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore, doc, setDoc } from "firebase/firestore"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, updateProfile } from "firebase/auth";
 import { addUserToDB } from "../functions/addUserToDB";
 
 // Your web app's Firebase configuration
@@ -19,27 +19,50 @@ const firebaseConfig = {
     appId: "1:290276841059:web:dad1eca51a4bf2ea374a56"
 };
 
-function createUser(email, password){
-
+function createUser(email, password, displayName){
     //from https://firebase.google.com/docs/auth/web/password-auth?hl=en#create_a_password-based_account
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const userRef = doc(db, "users", userCredential.user.uid)
 
-      // Signed in 
+        // Signed in 
         const user = userCredential.user;
 
+        // add user to collection
         setDoc(userRef, {
-            email: user.email
+            email: user.email,
+            displayName: displayName
+        })
+        .then(()=>{
+            console.log("User added to collection")
         })
 
-        alert("WORKED")
+        // add the display name to the user
+        // updateProfile(user, {
+        //     displayName: displayName
+        // }).then(() => {
+        //     console.log("Display name updated")
+        // }).catch((error) => {
+        //     console.log("Error updating display name")
+        // })
+        
+        //update name
+        updateProfile(user, {
+            displayName: displayName
+        }).then(() => {
+            console.log("Display name updated")
+        }).catch((error) => {
+            console.log("Error updating display name")
+        })
+
+        // everything after setLoginInformation doesn't get executed
+        alert("worked")
         setLoginInformation(user.email)
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-  });
+    });
 }
 function signInUser(email, password){
     signInWithEmailAndPassword(auth, email, password)

@@ -4,11 +4,12 @@ export function Register(){
     const handleSubmit = event => {
         event.preventDefault()
         const email = event.target.inputEmail.value
+        const displayName = event.target.inputDisplayName.value
         const password = event.target.inputPassword.value
         const passwordAgain = event.target.inputPasswordAgain.value
 
         if(password == passwordAgain){
-            createUser(email, password)
+            createUser(email, password, displayName)
         }else{
             appendAlert("Passwords not identical","danger")
         }
@@ -36,6 +37,10 @@ export function Register(){
                 <label htmlFor="inputEmail" className="form-label">Email address</label>
                 <input required type="email" className="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp"/>
                 <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="inputDisplayName" className="form-label">Display name</label>
+                <input required type="text" className="form-control" id="inputDisplayName" name="inputDisplayName"/>
             </div>
             <div className="mb-3">
                 <label htmlFor="inputPassword" className="form-label">Password</label>
