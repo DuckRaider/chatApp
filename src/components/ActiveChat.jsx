@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, onSnapshot, getDocs } from "firebase/firestore"
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
 import { useEffect, useState } from "react";
@@ -12,6 +12,24 @@ export function ActiveChat({chat}){
     const [messages, setMessages] = useState([])
 
     useEffect(()=>{
+        setUserAsObjects(async ()=>{
+          const usersRef = collection(db, "users")
+          const userSnap = await getDocs(usersRef)
+
+          let userArray = [];
+          userSnap.forEach(doc =>{
+            // check if user is in group and stuff
+            if(chat.users.indexOf(doc.data().id) > -1){
+              console.log("user added")
+              userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
+            }
+          })
+
+          console.log(userArray)
+          return userArray
+        })
+
+
         setMessages([])
         const unsubscribe = onSnapshot(queryMessages, (querySnapshot) => {
             querySnapshot.docChanges().forEach((change) => {

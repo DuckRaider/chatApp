@@ -23,7 +23,7 @@ export function Home(){
           // Following check for user in db works!!!
           // change.doc.data().users.indexOf("LrOqrJaaqUdDZIuYxcv0xEp80E2")>-1
           if(change.doc.data().users.indexOf(user?.uid)>-1){
-            let changedChat = { id: change.doc.id, ...change.doc.data() };
+            let changedChat = { id: change.doc.id, ...change.doc.data()};
     
             if (change.type === "added") {
               addChat(changedChat);
