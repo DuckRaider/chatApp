@@ -12,21 +12,21 @@ export function ActiveChat({chat}){
     const [messages, setMessages] = useState([])
 
     useEffect(()=>{
-        setUserAsObjects(async ()=>{
-          const usersRef = collection(db, "users")
-          const userSnap = await getDocs(usersRef)
-
+        // get users in chat as objects
+        const usersRef = collection(db, "users")
+        getDocs(usersRef)
+        .then(result => {
           let userArray = [];
-          userSnap.forEach(doc =>{
-            // check if user is in group and stuff
-            if(chat.users.indexOf(doc.data().id) > -1){
+
+          result.forEach(doc =>{
+            if(chat.users.indexOf(doc.id) > -1){
               console.log("user added")
               userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
             }
           })
 
           console.log(userArray)
-          return userArray
+          setUserAsObjects(userArray)
         })
 
 
@@ -102,7 +102,7 @@ export function ActiveChat({chat}){
         <>
             {messages && console.log(messages)}
             <h3>Active Chat: {chat.name}</h3>
-            <MessageList messages={messages}/>
+            <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
         </>
     )
 }
