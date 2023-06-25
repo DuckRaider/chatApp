@@ -117,10 +117,19 @@ export function Home(){
 
   return(
       <>
-        {user && console.log(user)}
+        <div id="wrapper">
+          <div id="chatsBar">
+            {chats && <ChatList chats={chats} setChat={setChat}/>}
+          </div>
+          <div id="activeChat">
+            {activeChat == null && <h2>No chat selected</h2>}
+            {activeChat && <ActiveChat chat={activeChat}/>}
+          </div>
+        </div>
+        {/* {user && console.log(user)}
         {chats && <ChatList chats={chats} setChat={setChat}/>}
         <h1>========================================</h1>
-        {activeChat && <ActiveChat chat={activeChat}/>}
+        {activeChat && <ActiveChat chat={activeChat}/>} */}
       </>
   )
 }

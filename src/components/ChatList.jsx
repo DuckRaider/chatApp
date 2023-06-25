@@ -5,8 +5,7 @@ export function ChatList({chats, setChat}){
 
     return(
         <>
-            <ul>
-                <h1>All Chats:</h1>
+            <ul id="chatsList">
                 {chats==null && <p>No chats</p>}
                 {chats.map(chat=>{
                     return(
