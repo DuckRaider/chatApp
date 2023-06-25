@@ -13,8 +13,10 @@ export function Message({message, userAsObjecs}){
 
     return(
         <>
-            <p>{`${getUserDisplayNameById()}`}</p>
-            <p>{message.message}</p>
+            <div className="message">
+                <p className="username">{`${getUserDisplayNameById()}`}</p>
+                <p className="messageFromUser">{message.message}</p>
+            </div>
         </>
     )
 }

@@ -44,6 +44,8 @@ export function ActiveChat({chat}){
               if (change.type === "removed") {
                 deleteMessage(changedMessage)
               }
+
+              sortByDate()
             });
           });
 
@@ -94,15 +96,26 @@ export function ActiveChat({chat}){
 
     function sortByDate(){
       setMessages(currentMessages =>{
-        
+          return[
+            ...currentMessages.sort((a,b)=>{
+              return a.createdAt - b.createdAt
+            })
+          ]
         }
       )
     }
     return(
         <>
+            <div id="chatHeader">
+              <h2>{chat.name}</h2>
+            </div>
+            <div id="chatBody">
+              <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
+            </div>
+            <div id="chatFooter">
+
+            </div>
             {messages && console.log(messages)}
-            <h3>Active Chat: {chat.name}</h3>
-            <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
         </>
     )
 }

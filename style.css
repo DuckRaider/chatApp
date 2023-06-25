@@ -20,6 +20,8 @@ body{
     width: 30%;
 }
 #activeChat{
+    display: flex;
+    flex-direction: column;
     border: 2px solid black;
     height: auto;
     width: 100%;
@@ -34,11 +36,35 @@ body{
     justify-content: space-around;
     padding: 0;
 }
-.message{
+.chat{
     text-align: center;
     border: 1px solid black;
 }
-.message p{
+.chat p{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+
+/* chat box structure */
+#chatHeader{
+    background-color: blue;
+    border-bottom: 2px solid black;
+}
+#chatFooter{
+    height: 60px;
+    background-color: rebeccapurple;
+    margin-top: auto;
+}
+
+
+/* a message in a chat */
+.message{
+    border-bottom: 2px solid black;
+}
+.message p{
+    margin: 10px;
+}
+.username{
+    color: rgb(187, 187, 187);
 }
