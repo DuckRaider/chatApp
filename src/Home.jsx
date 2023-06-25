@@ -123,7 +123,7 @@ export function Home(){
           </div>
           <div id="activeChat">
             {activeChat == null && <h2>No chat selected</h2>}
-            {activeChat && <ActiveChat chat={activeChat}/>}
+            {activeChat && <ActiveChat chat={activeChat} user={user}/>}
           </div>
         </div>
         {/* {user && console.log(user)}

@@ -1,3 +1,6 @@
+html{
+    scroll-behavior: smooth;
+}
 *{
     color: white;
     padding: 0;
@@ -40,6 +43,10 @@ body{
     text-align: center;
     border: 1px solid black;
 }
+.chat:hover{
+    background-color: rgba(255, 255, 255, 0.11);
+    cursor: pointer;
+}
 .chat p{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -52,9 +59,19 @@ body{
     border-bottom: 2px solid black;
 }
 #chatFooter{
-    height: 60px;
+    height: auto;
     background-color: rebeccapurple;
     margin-top: auto;
+}
+#chatBody{
+    overflow-y: auto;
+}
+#chatBody::-webkit-scrollbar{
+    background-color: rgb(74, 37, 37);
+}
+#chatBody::-webkit-scrollbar-thumb{
+    background-color: red;
+    border: 2px solid black;
 }
 
 
@@ -67,4 +84,16 @@ body{
 }
 .username{
     color: rgb(187, 187, 187);
+}
+
+/* send message */
+#sendMessageForm{
+    display: flex;
+    margin: 10px;
+}
+#submitMessage{
+    color: white;
+}
+#submitMessage :hover{
+    color: white;
 }
