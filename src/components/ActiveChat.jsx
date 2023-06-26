@@ -176,7 +176,7 @@ export function ActiveChat({chat, user}){
             <div id="chatFooter">
               <form id="sendMessageForm" onSubmit={handleSubmit}>
                 <input name="message" type="text" className="form-control" id="usr"/>
-                <button id="submitMessage" type="submit" className="btn btn-default">Submit</button>
+                <button id="submitMessage" type="submit" className="btn btn-default">Send</button>
               </form>
             </div>
             {messages && console.log(messages)}
