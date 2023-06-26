@@ -6,7 +6,8 @@ export function Message({message, userAsObjecs}){
             return object.id === message.user
         })
 
-        return user.displayName
+        // Problem: the userAsObjects is not updated after adding a new user -> error displaying name
+        return user?.displayName
     }
 
     return(

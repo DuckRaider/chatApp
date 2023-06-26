@@ -2,6 +2,7 @@ import { collection, onSnapshot, getDocs, doc, addDoc } from "firebase/firestore
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
 import { useEffect, useRef, useState } from "react";
+import { addUserToGroup } from "../functions/addUserToGroup";
 
 export function ActiveChat({chat, user}){
     console.log("Active chat created: " + chat.name)
@@ -169,6 +170,7 @@ export function ActiveChat({chat, user}){
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
+              <button onClick={()=>addUserToGroup(chat, "WVwqnBKj6ueXHDDYxVYNMwS8wDD2")}>Add User</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>

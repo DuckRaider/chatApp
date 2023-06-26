@@ -30,6 +30,17 @@ export function Home(){
             }
             if (change.type === "modified") {
               modifyChat(changedChat)
+
+              if(activeChat){
+                setActiveChat(()=>{
+                  chats.map(chat => {
+                    if(chat.id === activeChat.id){
+                      console.log(chat)
+                      return chat
+                    }
+                  })
+                })
+              }
             }
             if (change.type === "removed") {
               console.log("Removed message: ", change.doc.data());
