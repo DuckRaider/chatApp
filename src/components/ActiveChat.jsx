@@ -157,7 +157,6 @@ export function ActiveChat({chat, user}){
       const usersRef = collection(db, "users")
       getDocs(usersRef)
       .then(result => {
-        getUsersFromDB(result)
         let userArray = [];
 
         result.forEach(doc =>{
