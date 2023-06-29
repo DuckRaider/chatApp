@@ -15,21 +15,23 @@ export function ActiveChat({chat, user}){
 
     useEffect(()=>{
         // get users in chat as objects
-        const usersRef = collection(db, "users")
-        getDocs(usersRef)
-        .then(result => {
-          let userArray = [];
+        // const usersRef = collection(db, "users")
+        // getDocs(usersRef)
+        // .then(result => {
+        //   getUsersFromDB(result)
+        //   let userArray = [];
 
-          result.forEach(doc =>{
-            if(chat.users.indexOf(doc.id) > -1){
-              console.log("user added")
-              userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
-            }
-          })
+        //   result.forEach(doc =>{
+        //     if(chat.users.indexOf(doc.id) > -1){
+        //       console.log("user added")
+        //       userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
+        //     }
+        //   })
 
-          console.log(userArray)
-          setUserAsObjects(userArray)
-        })
+        //   console.log(userArray)
+        //   setUserAsObjects(userArray)
+        // })
+        getUsersFromDB()
 
 
         setMessages([])
@@ -151,6 +153,25 @@ export function ActiveChat({chat, user}){
 
 
 
+    function getUsersFromDB(){
+      const usersRef = collection(db, "users")
+      getDocs(usersRef)
+      .then(result => {
+        getUsersFromDB(result)
+        let userArray = [];
+
+        result.forEach(doc =>{
+          if(chat.users.indexOf(doc.id) > -1){
+            console.log("user added")
+            userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
+          }
+        })
+
+        console.log(userArray)
+        setUserAsObjects(userArray)
+      })
+    }
+
 
 
     function sortByDate(){
@@ -170,7 +191,7 @@ export function ActiveChat({chat, user}){
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
-              <button onClick={()=>addUserToGroup(chat, "WVwqnBKj6ueXHDDYxVYNMwS8wDD2")}>Add User</button>
+              <button onClick={()=>addUserToGroup(chat, "biqmaNNr9gOJLBtBqnIqTd1GyD03"/*2*/, getUsersFromDB)}>Add User</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
