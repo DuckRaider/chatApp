@@ -1,7 +1,10 @@
 import { collection, doc, updateDoc, getDocs } from "firebase/firestore";
 import { db } from "../db/firebase";
 
-export async function addUserToGroup(chat, uid, getUsersFromDB){
+export async function addUserToGroup(chat, getUsersFromDB){
+    // get UID
+    let uid = prompt("Type in UserID")
+
     // check if user is already in group
     if(chat.users.indexOf(uid) == -1){
         // check if user exists

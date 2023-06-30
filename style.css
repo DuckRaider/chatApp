@@ -29,6 +29,14 @@ body{
     height: auto;
     width: 100%;
 }
+#userCell{
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+}
+#userCell h3,#userCell h4{
+    font-size: smaller;
+}
 
 
 /* chats */

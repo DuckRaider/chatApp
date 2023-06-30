@@ -149,6 +149,7 @@ export function ActiveChat({chat, user}){
       }
 
       addMessageDB(messageObj)
+      event.target.message.value = ""
     }
 
 
@@ -190,7 +191,7 @@ export function ActiveChat({chat, user}){
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
-              <button onClick={()=>addUserToGroup(chat, "biqmaNNr9gOJLBtBqnIqTd1GyD03"/*2*/, getUsersFromDB)}>Add User</button>
+              <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>

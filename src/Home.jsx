@@ -131,6 +131,10 @@ export function Home(){
         <div id="wrapper">
           <div id="chatsBar">
             {chats && <ChatList chats={chats} setChat={setChat}/>}
+            <div id="userCell">
+              <h3>{user?.displayName}</h3>
+              <h4>{user?.uid}</h4>
+            </div>
           </div>
           <div id="activeChat">
             {activeChat == null && <h2>No chat selected</h2>}
