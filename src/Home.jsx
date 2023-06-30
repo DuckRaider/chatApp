@@ -141,10 +141,6 @@ export function Home(){
             {activeChat && <ActiveChat chat={activeChat} user={user}/>}
           </div>
         </div>
-        {/* {user && console.log(user)}
-        {chats && <ChatList chats={chats} setChat={setChat}/>}
-        <h1>========================================</h1>
-        {activeChat && <ActiveChat chat={activeChat}/>} */}
       </>
   )
 }
