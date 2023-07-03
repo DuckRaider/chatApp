@@ -15,23 +15,6 @@ export function ActiveChat({chat, user}){
     const [messages, setMessages] = useState([])
 
     useEffect(()=>{
-        // get users in chat as objects
-        // const usersRef = collection(db, "users")
-        // getDocs(usersRef)
-        // .then(result => {
-        //   getUsersFromDB(result)
-        //   let userArray = [];
-
-        //   result.forEach(doc =>{
-        //     if(chat.users.indexOf(doc.id) > -1){
-        //       console.log("user added")
-        //       userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
-        //     }
-        //   })
-
-        //   console.log(userArray)
-        //   setUserAsObjects(userArray)
-        // })
         getUsersFromDB()
 
 
@@ -168,7 +151,6 @@ export function ActiveChat({chat, user}){
           }
         })
 
-        console.log(userArray)
         setUserAsObjects(userArray)
       })
     }
@@ -204,7 +186,6 @@ export function ActiveChat({chat, user}){
                 <button id="submitMessage" type="submit" className="btn btn-default">Send</button>
               </form>
             </div>
-            {messages && console.log(messages)}
         </>
     )
 }
