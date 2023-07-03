@@ -193,7 +193,7 @@ export function ActiveChat({chat, user}){
             <div id="chatHeader">
               <h2>{chat.name}</h2>
               <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
-              <button onClick={()=>deleteUserFromGroup(chat, user, getUsersFromDB)}>Leave Chat</button>
+              <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
