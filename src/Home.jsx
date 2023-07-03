@@ -30,6 +30,17 @@ export function Home(){
             }
             if (change.type === "modified") {
               modifyChat(changedChat)
+
+              if(activeChat){
+                setActiveChat(()=>{
+                  chats.map(chat => {
+                    if(chat.id === activeChat.id){
+                      console.log(chat)
+                      return chat
+                    }
+                  })
+                })
+              }
             }
             if (change.type === "removed") {
               console.log("Removed message: ", change.doc.data());
@@ -117,10 +128,19 @@ export function Home(){
 
   return(
       <>
-        {user && console.log(user)}
-        {chats && <ChatList chats={chats} setChat={setChat}/>}
-        <h1>========================================</h1>
-        {activeChat && <ActiveChat chat={activeChat}/>}
+        <div id="wrapper">
+          <div id="chatsBar">
+            {chats && <ChatList chats={chats} setChat={setChat}/>}
+            <div id="userCell">
+              <h3>{user?.displayName}</h3>
+              <h4>{user?.uid}</h4>
+            </div>
+          </div>
+          <div id="activeChat">
+            {activeChat == null && <h2>No chat selected</h2>}
+            {activeChat && <ActiveChat chat={activeChat} user={user}/>}
+          </div>
+        </div>
       </>
   )
 }

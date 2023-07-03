@@ -1,33 +1,21 @@
-import { collection, onSnapshot, getDocs } from "firebase/firestore"
+import { collection, onSnapshot, getDocs, doc, addDoc } from "firebase/firestore"
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { addUserToGroup } from "../functions/addUserToGroup";
+import { deleteUserFromGroup } from "../functions/deleteUserFromGroup";
 
-export function ActiveChat({chat}){
+export function ActiveChat({chat, user}){
     console.log("Active chat created: " + chat.name)
     const messageRef = collection(db, "chats", chat.id, "messages")
     const queryMessages = messageRef;
     const [userAsObjecs, setUserAsObjects] = useState([])
+    const lastMessageRef = useRef(null)
 
     const [messages, setMessages] = useState([])
 
     useEffect(()=>{
-        // get users in chat as objects
-        const usersRef = collection(db, "users")
-        getDocs(usersRef)
-        .then(result => {
-          let userArray = [];
-
-          result.forEach(doc =>{
-            if(chat.users.indexOf(doc.id) > -1){
-              console.log("user added")
-              userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
-            }
-          })
-
-          console.log(userArray)
-          setUserAsObjects(userArray)
-        })
+        getUsersFromDB()
 
 
         setMessages([])
@@ -44,6 +32,8 @@ export function ActiveChat({chat}){
               if (change.type === "removed") {
                 deleteMessage(changedMessage)
               }
+
+              sortByDate()
             });
           });
 
@@ -52,8 +42,14 @@ export function ActiveChat({chat}){
           };
     },[chat])
 
-    useEffect(()=>{
 
+    useEffect(()=>{
+      let pageBottom = lastMessageRef.current.lastElementChild
+      console.log(pageBottom)
+
+      if(pageBottom != null){
+        pageBottom.scrollIntoView()
+      }
     },[messages])
 
 
@@ -92,17 +88,104 @@ export function ActiveChat({chat}){
 
 
 
+    // functions for updating the database
+    async function addMessageDB(message){
+      const messageRef = collection(db, "chats", chat.id, "messages")
+
+      await addDoc(messageRef, message)
+      .catch(e=>{
+        console.log(e)
+      })
+    }
+    async function deleteMessageDB(message){
+      const chatRef = doc(db, "chats", chat.id)
+
+      await deleteDoc(chatRef)
+      .catch(e=>{
+        console.log(e)
+      })
+    }
+    async function modifyMessageDB(message){
+      const chatRef = doc(db, "chats", chat.id)
+
+      await updateDoc(chatRef,{
+        name: chat.name,
+        users: chat.users
+      })
+      .catch(e=>{
+        console.log(e)
+      })
+    }
+
+
+
+
+    const handleSubmit = event =>{
+      event.preventDefault()
+      const message = event.target.message.value
+      const userSendingMessage = user.uid
+      const createdAt = new Date()
+
+      const messageObj = {
+        message: message,
+        user:userSendingMessage,
+        createdAt: createdAt
+      }
+
+      addMessageDB(messageObj)
+      event.target.message.value = ""
+    }
+
+
+
+    function getUsersFromDB(){
+      const usersRef = collection(db, "users")
+      getDocs(usersRef)
+      .then(result => {
+        let userArray = [];
+
+        result.forEach(doc =>{
+          if(chat.users.indexOf(doc.id) > -1){
+            console.log("user added")
+            userArray.push({id:doc.id, email: doc.data().email, displayName: doc.data().displayName})
+          }
+        })
+
+        setUserAsObjects(userArray)
+      })
+    }
+
+
+
     function sortByDate(){
       setMessages(currentMessages =>{
-        
+          return[
+            ...currentMessages.sort((a,b)=>{
+              return a.createdAt - b.createdAt
+            })
+          ]
         }
       )
     }
+
+
+
     return(
         <>
-            {messages && console.log(messages)}
-            <h3>Active Chat: {chat.name}</h3>
-            <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
+            <div id="chatHeader">
+              <h2>{chat.name}</h2>
+              <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
+              <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+            </div>
+            <div ref={lastMessageRef} id="chatBody">
+              <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
+            </div>
+            <div id="chatFooter">
+              <form id="sendMessageForm" onSubmit={handleSubmit}>
+                <input name="message" type="text" className="form-control" id="usr"/>
+                <button id="submitMessage" type="submit" className="btn btn-default">Send</button>
+              </form>
+            </div>
         </>
     )
 }

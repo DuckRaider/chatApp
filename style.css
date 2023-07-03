@@ -1,6 +1,108 @@
+html{
+    scroll-behavior: smooth;
+}
 *{
     color: white;
+    padding: 0;
+    margin: 0;
 }
 body{
     background: linear-gradient(90deg, rgba(67,0,0,1) 0%, rgba(184,0,0,1) 100%);
+}
+
+/* Base structure homepage */
+#wrapper{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+#chatsBar{
+    border: 2px solid black;
+    height: auto;
+    width: 30%;
+}
+#activeChat{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    height: auto;
+    width: 100%;
+}
+#userCell{
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+}
+#userCell h3,#userCell h4{
+    font-size: smaller;
+}
+
+
+/* chats */
+#chatsList{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0;
+}
+.chat{
+    text-align: center;
+    border: 1px solid black;
+}
+.chat:hover{
+    background-color: rgba(255, 255, 255, 0.11);
+    cursor: pointer;
+}
+.chat p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* chat box structure */
+#chatHeader{
+    background-color: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid black;
+    text-align: center;
+}
+#chatFooter{
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: auto;
+}
+#chatBody{
+    overflow-y: auto;
+}
+#chatBody::-webkit-scrollbar{
+    background-color: rgb(74, 37, 37);
+}
+#chatBody::-webkit-scrollbar-thumb{
+    background-color: red;
+    border: 2px solid black;
+}
+
+
+/* a message in a chat */
+.message{
+    border-bottom: 2px solid black;
+}
+.message p{
+    margin: 10px;
+}
+.username{
+    color: rgb(187, 187, 187);
+}
+
+/* send message */
+#sendMessageForm{
+    display: flex;
+    margin: 10px;
+}
+#submitMessage{
+    color: white;
+}
+#submitMessage :hover{
+    color: white;
 }

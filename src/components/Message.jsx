@@ -2,19 +2,28 @@ import { useEffect } from "react"
 
 export function Message({message, userAsObjecs}){
     function getUserDisplayNameById(){
+        // check if system info message
+        if(message.user == "system"){
+            return "====SYSTEM===="
+        }
+
+        // get the user
         const user = userAsObjecs.find(object => {
-            console.log(object)
-            console.log(message)
             return object.id === message.user
         })
 
-        return user.displayName
+        if(!user){
+            return "DELETED USER"
+        }
+        return user?.displayName
     }
 
     return(
         <>
-            <p>{`${getUserDisplayNameById()}`}</p>
-            <p>{message.message}</p>
+            <div className="message">
+                <p className="username">{`${getUserDisplayNameById()}`}</p>
+                <p className="messageFromUser">{message.message}</p>
+            </div>
         </>
     )
 }
