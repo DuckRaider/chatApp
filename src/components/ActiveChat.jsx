@@ -4,6 +4,7 @@ import { MessageList } from "./MessageList";
 import { useEffect, useRef, useState } from "react";
 import { addUserToGroup } from "../functions/addUserToGroup";
 import { deleteUserFromGroup } from "../functions/deleteUserFromGroup";
+import { deleteChatDB } from "../functions/DBFunctions/deleteChatDB";
 
 export function ActiveChat({chat, user}){
     console.log("Active chat created: " + chat.name)
@@ -185,10 +186,10 @@ export function ActiveChat({chat, user}){
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
-              <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
-              <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
-              <button onClick={()=>alert(showUsersDisplayName())}>List all users</button>
-              <button onClick={()=>deleteMessageDB(chat)}>Delete Chat</button>
+              <button className="btn btn-primary" onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
+              <button className="btn btn-primary" onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+              <button className="btn btn-primary" onClick={()=>alert(showUsersDisplayName())}>List all users</button>
+              <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
