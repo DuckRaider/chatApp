@@ -2,8 +2,8 @@ import { collection, onSnapshot, getDocs, doc, addDoc, updateDoc, deleteDoc } fr
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
 import { useEffect, useRef, useState } from "react";
-import { addUserToGroup } from "../functions/addUserToGroup";
-import { deleteUserFromGroup } from "../functions/deleteUserFromGroup";
+import { addUserToGroup } from "../functions/DBFunctions/addUserToGroup";
+import { deleteUserFromGroup } from "../functions/DBFunctions/deleteUserFromGroup";
 import { deleteChatDB } from "../functions/DBFunctions/deleteChatDB";
 
 export function ActiveChat({chat, user}){
@@ -192,7 +192,7 @@ export function ActiveChat({chat, user}){
               <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
-              <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
+              <MessageList messages={messages} userAsObjecs={userAsObjecs} user={user}/>
             </div>
             <div id="chatFooter">
               <form id="sendMessageForm" onSubmit={handleSubmit}>

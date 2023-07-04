@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { db } from "../db/firebase";
+import { db } from "../../db/firebase";
 import { addSystemMessage } from "./addSystemMessage";
 
 export async function deleteUserFromGroup(chat, user){
