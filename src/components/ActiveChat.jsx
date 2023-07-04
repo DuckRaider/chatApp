@@ -1,4 +1,4 @@
-import { collection, onSnapshot, getDocs, doc, addDoc } from "firebase/firestore"
+import { collection, onSnapshot, getDocs, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
 import { useEffect, useRef, useState } from "react";
@@ -188,6 +188,7 @@ export function ActiveChat({chat, user}){
               <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
               <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
               <button onClick={()=>alert(showUsersDisplayName())}>List all users</button>
+              <button onClick={()=>deleteMessageDB(chat)}>Delete Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>

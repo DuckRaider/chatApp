@@ -10,6 +10,6 @@ export function addChatsToChats(user, addChatDB){
         addChatDB(chat)
     }
     else{
-        alert("Name must be longer than 0 char")
+        alert("Name must be longer than 0 chars")
     }
 }

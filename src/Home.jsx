@@ -98,14 +98,14 @@ export function Home(){
       console.log(e)
     })
   }
-  async function deleteChatDB(chat){
-    const chatRef = doc(db, "chats", chat.id)
+  // async function deleteChatDB(chat){
+  //   const chatRef = doc(db, "chats", chat.id)
 
-    await deleteDoc(chatRef)
-    .catch(e=>{
-      console.log(e)
-    })
-  }
+  //   await deleteDoc(chatRef)
+  //   .catch(e=>{
+  //     console.log(e)
+  //   })
+  // }
   async function modifyChatDB(chat){
     const chatRef = doc(db, "chats", chat.id)
 
@@ -122,8 +122,6 @@ export function Home(){
 
 
   function setChat(chat){
-      console.log("setChatExecuted")
-      console.log(chat)
       setActiveChat(chat) 
   }
 
