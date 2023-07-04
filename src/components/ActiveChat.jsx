@@ -157,6 +157,18 @@ export function ActiveChat({chat, user}){
 
 
 
+    function showUsersDisplayName(){
+      let usersDisplayNames = ""
+      userAsObjecs.forEach(element => {
+        usersDisplayNames = `${usersDisplayNames}Name: ${element.displayName}, ID: ${element.id} \n`
+        console.log(element)
+      });
+
+      return usersDisplayNames
+    }
+
+
+
     function sortByDate(){
       setMessages(currentMessages =>{
           return[
@@ -169,13 +181,13 @@ export function ActiveChat({chat, user}){
     }
 
 
-
     return(
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
               <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
               <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+              <button onClick={()=>alert(showUsersDisplayName())}>List all users</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList messages={messages} userAsObjecs={userAsObjecs}/>

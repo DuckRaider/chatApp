@@ -6,6 +6,7 @@ import { Chat } from "./components/Chat";
 import { ChatList } from "./components/ChatList";
 import { useEffect, useState } from "react";
 import { ActiveChat } from "./components/ActiveChat";
+import { addChatsToChats } from "./functions/addChatToChats";
 
 export function Home(){
   const navigate = useNavigate()
@@ -90,7 +91,7 @@ export function Home(){
 
   // functions for updating the database
   async function addChatDB(chat){
-    const chatRef = doc(db, "chats")
+    const chatRef = collection(db, "chats")
 
     await addDoc(chatRef, chat)
     .catch(e=>{
@@ -130,6 +131,7 @@ export function Home(){
       <>
         <div id="wrapper">
           <div id="chatsBar">
+            <button onClick={()=>addChatsToChats(user, addChatDB)}>Create chat</button>
             {chats && <ChatList chats={chats} setChat={setChat}/>}
             <div id="userCell">
               <h3>{user?.displayName}</h3>
