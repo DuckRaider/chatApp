@@ -98,14 +98,6 @@ export function Home(){
       console.log(e)
     })
   }
-  // async function deleteChatDB(chat){
-  //   const chatRef = doc(db, "chats", chat.id)
-
-  //   await deleteDoc(chatRef)
-  //   .catch(e=>{
-  //     console.log(e)
-  //   })
-  // }
   async function modifyChatDB(chat){
     const chatRef = doc(db, "chats", chat.id)
 
