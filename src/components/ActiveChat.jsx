@@ -1,9 +1,10 @@
-import { collection, onSnapshot, getDocs, doc, addDoc } from "firebase/firestore"
+import { collection, onSnapshot, getDocs, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../db/firebase"
 import { MessageList } from "./MessageList";
 import { useEffect, useRef, useState } from "react";
-import { addUserToGroup } from "../functions/addUserToGroup";
-import { deleteUserFromGroup } from "../functions/deleteUserFromGroup";
+import { addUserToGroup } from "../functions/DBFunctions/addUserToGroup";
+import { deleteUserFromGroup } from "../functions/DBFunctions/deleteUserFromGroup";
+import { deleteChatDB } from "../functions/DBFunctions/deleteChatDB";
 
 export function ActiveChat({chat, user}){
     console.log("Active chat created: " + chat.name)
@@ -157,6 +158,18 @@ export function ActiveChat({chat, user}){
 
 
 
+    function showUsersDisplayName(){
+      let usersDisplayNames = ""
+      userAsObjecs.forEach(element => {
+        usersDisplayNames = `${usersDisplayNames}Name: ${element.displayName}, ID: ${element.id} \n`
+        console.log(element)
+      });
+
+      return usersDisplayNames
+    }
+
+
+
     function sortByDate(){
       setMessages(currentMessages =>{
           return[
@@ -169,16 +182,17 @@ export function ActiveChat({chat, user}){
     }
 
 
-
     return(
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
-              <button onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
-              <button onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+              <button className="btn btn-primary" onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
+              <button className="btn btn-primary" onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+              <button className="btn btn-primary" onClick={()=>alert(showUsersDisplayName())}>List all users</button>
+              <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
-              <MessageList messages={messages} userAsObjecs={userAsObjecs}/>
+              <MessageList messages={messages} userAsObjecs={userAsObjecs} user={user}/>
             </div>
             <div id="chatFooter">
               <form id="sendMessageForm" onSubmit={handleSubmit}>

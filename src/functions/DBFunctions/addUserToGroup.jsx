@@ -1,5 +1,6 @@
 import { collection, doc, updateDoc, getDocs } from "firebase/firestore";
-import { db } from "../db/firebase";
+import { db } from "../../db/firebase";
+import { addSystemMessage } from "./addSystemMessage";
 
 export async function addUserToGroup(chat, getUsersFromDB){
     // get UID

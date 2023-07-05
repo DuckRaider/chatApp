@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export function Message({message, userAsObjecs}){
+export function Message({message, userAsObjecs, user}){
     function getUserDisplayNameById(){
         // check if system info message
         if(message.user == "system"){
@@ -8,20 +8,21 @@ export function Message({message, userAsObjecs}){
         }
 
         // get the user
-        const user = userAsObjecs.find(object => {
+        const userMessage = userAsObjecs.find(object => {
             return object.id === message.user
         })
 
-        if(!user){
+        if(!userMessage){
             return "DELETED USER"
         }
-        return user?.displayName
+        return userMessage?.displayName
     }
 
     return(
         <>
             <div className="message">
                 <p className="username">{`${getUserDisplayNameById()}`}</p>
+                {user.uid === message.user && <button className="btn btn-primary" onClick={()=>alert("delete message")}>Delete Message</button>}
                 <p className="messageFromUser">{message.message}</p>
             </div>
         </>

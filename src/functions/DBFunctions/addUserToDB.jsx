@@ -1,5 +1,5 @@
 import { addDoc, doc, onSnapshot, query, setDoc } from "firebase/firestore";
-import { db } from "../db/firebase";
+import { db } from "../../db/firebase";
 
 export async function addUserToDB(user){
     console.log("addUser started")
