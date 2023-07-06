@@ -124,6 +124,7 @@ export function Home(){
         <div id="wrapper">
           <div id="chatsBar">
             <button onClick={()=>addChatsToChats(user, addChatDB)}>Create chat</button>
+            <Link to="/login">Login</Link>
             {chats && <ChatList chats={chats} setChat={setChat}/>}
             <div id="userCell">
               <h3>{user?.displayName}</h3>
