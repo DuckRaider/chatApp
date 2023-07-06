@@ -95,6 +95,7 @@ export function Home(){
 
     await addDoc(chatRef, chat)
     .catch(e=>{
+      // error
       console.log(e)
     })
   }
