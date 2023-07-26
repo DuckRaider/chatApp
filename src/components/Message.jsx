@@ -1,6 +1,7 @@
 import { useEffect } from "react"
+import { deleteMessageDB } from "../functions/DBFunctions/deleteMessageDB"
 
-export function Message({message, userAsObjecs, user}){
+export function Message({chat, message, userAsObjecs, user}){
     function getUserDisplayNameById(){
         // check if system info message
         if(message.user == "system"){
@@ -22,7 +23,7 @@ export function Message({message, userAsObjecs, user}){
         <>
             <div className="message">
                 <p className="username">{`${getUserDisplayNameById()}`}</p>
-                {user.uid === message.user && <button className="btn btn-primary" onClick={()=>alert("delete message")}>Delete Message</button>}
+                {user.uid === message.user && <button className="btn btn-primary" onClick={()=>deleteMessageDB(chat, message)}>Delete Message</button>}
                 <p className="messageFromUser">{message.message}</p>
             </div>
         </>

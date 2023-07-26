@@ -98,27 +98,6 @@ export function ActiveChat({chat, user}){
         console.log(e)
       })
     }
-    async function deleteMessageDB(message){
-      const chatRef = doc(db, "chats", chat.id)
-
-      await deleteDoc(chatRef)
-      .catch(e=>{
-        console.log(e)
-      })
-    }
-    async function modifyMessageDB(message){
-      const chatRef = doc(db, "chats", chat.id)
-
-      await updateDoc(chatRef,{
-        name: chat.name,
-        users: chat.users
-      })
-      .catch(e=>{
-        console.log(e)
-      })
-    }
-
-
 
 
     const handleSubmit = event =>{
@@ -192,7 +171,7 @@ export function ActiveChat({chat, user}){
               <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
             </div>
             <div ref={lastMessageRef} id="chatBody">
-              <MessageList messages={messages} userAsObjecs={userAsObjecs} user={user}/>
+              <MessageList chat={chat} messages={messages} userAsObjecs={userAsObjecs} user={user}/>
             </div>
             <div id="chatFooter">
               <form id="sendMessageForm" onSubmit={handleSubmit}>
