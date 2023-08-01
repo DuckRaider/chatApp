@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { addUserToDB } from "../functions/DBFunctions/addUserToDB";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDagOQSi9jMhCTj88lKFxwNC6Fjfw3dxOs",
+    apiKey: "secret",
     authDomain: "chatappv2-50d2d.firebaseapp.com",
     projectId: "chatappv2-50d2d",
     storageBucket: "chatappv2-50d2d.appspot.com",
