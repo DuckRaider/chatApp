@@ -165,10 +165,12 @@ export function ActiveChat({chat, user}){
         <>
             <div id="chatHeader">
               <h2>{chat.name}</h2>
-              <button className="btn btn-primary" onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
-              <button className="btn btn-primary" onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
-              <button className="btn btn-primary" onClick={()=>alert(showUsersDisplayName())}>List all users</button>
-              <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
+              <div id="chatHeaderButtons">
+                <button className="btn btn-primary" onClick={()=>addUserToGroup(chat, getUsersFromDB)}>Add User</button>
+                <button className="btn btn-primary" onClick={()=>deleteUserFromGroup(chat, user)}>Leave Chat</button>
+                <button className="btn btn-primary" onClick={()=>alert(showUsersDisplayName())}>List all users</button>
+                <button className="btn btn-primary" onClick={()=>deleteChatDB(chat)}>Delete Chat</button>
+              </div>
             </div>
             <div ref={lastMessageRef} id="chatBody">
               <MessageList chat={chat} messages={messages} userAsObjecs={userAsObjecs} user={user}/>
