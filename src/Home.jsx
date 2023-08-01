@@ -123,8 +123,10 @@ export function Home(){
       <>
         <div id="wrapper">
           <div id="chatsBar">
-            <button onClick={()=>addChatsToChats(user, addChatDB)}>Create chat</button>
-            <Link to="/login">Login</Link>
+            <div id="chatsBarHeader">
+              {user && <button className="btn btn-primary" onClick={()=>addChatsToChats(user, addChatDB)}>Create chat</button>}
+              <button className="btn btn-primary" onClick={()=>window.location.replace("/login")}>Login</button>
+            </div>
             {chats && <ChatList chats={chats} setChat={setChat}/>}
             <div id="userCell">
               <h3>{user?.displayName}</h3>

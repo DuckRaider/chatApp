@@ -1,6 +1,8 @@
 import { useEffect } from "react"
+import { deleteMessageDB } from "../functions/DBFunctions/deleteMessageDB"
+import deleteImg from '../images/delete.png'
 
-export function Message({message, userAsObjecs, user}){
+export function Message({chat, message, userAsObjecs, user}){
     function getUserDisplayNameById(){
         // check if system info message
         if(message.user == "system"){
@@ -21,8 +23,10 @@ export function Message({message, userAsObjecs, user}){
     return(
         <>
             <div className="message">
-                <p className="username">{`${getUserDisplayNameById()}`}</p>
-                {user.uid === message.user && <button className="btn btn-primary" onClick={()=>alert("delete message")}>Delete Message</button>}
+                <div className="messageHeader">
+                    <p className="username">{`${getUserDisplayNameById()}`}</p>
+                    {user.uid === message.user && <img className="deleteImg" src={deleteImg} alt="bin image" onClick={()=>deleteMessageDB(chat, message)}/>}
+                </div>
                 <p className="messageFromUser">{message.message}</p>
             </div>
         </>
